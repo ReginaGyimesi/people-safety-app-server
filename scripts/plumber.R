@@ -26,8 +26,8 @@ function() {
   recorded_crime_clean_la
 }
 
-#* Get score by la
-#* @param a The first number to add
+#* Get crime data by local authority
+#* @param la Name of local authority
 #* @post /scot-crime-by-la
 function(la) {
   assign_score_to_la %>%

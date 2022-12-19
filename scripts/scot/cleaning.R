@@ -47,7 +47,20 @@ all_crimes_by_la <- recorded_crime_clean_la %>%
   
 assign_score_to_la <- all_crimes_by_la %>% 
   mutate(
-    norm_value = round(scales::rescale(value) * 9 + 1)
+    score = round(scales::rescale(value) * 9 + 1),
+    area_name = case_when(
+      area_name == "City of Edinburgh" ~ "Edinburgh",
+      area_name == "West Dunbartonshire" ~ "West Dunbartonshire Council",
+      area_name == "Dundee City" ~ "Dundee City Council",
+      area_name == "Highland" ~ "Highland Council",
+      area_name == "East Renfrewshire" ~ "East Renfrewshire Council",
+      TRUE ~ area_name
+    ),
+    score_category = case_when(
+      score <= 3 ~ "low",  
+      4 <= score & score <= 7 ~ "average",  
+      score >= 8 ~ "high"
+    )
   )
 
 crime_data <- ukp_crime(lat = 52.52618, lng = -1.897738, date = c("2021-03", "2021-09"))
