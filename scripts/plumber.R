@@ -34,6 +34,22 @@ function(la) {
     filter(area_name == la)
 }
 
+#* Get lsoa code by post code
+#* @param po Name of post code e.g. SE12SS
+#* @post /lsoa-by-po
+function(po) {
+  lsoa_lookup %>%
+    filter(pcd7 == po)
+}
+
+#* Get crime data by lsoa code.
+#* @param lsoacd Lsoa code e.g. E01004762
+#* @post /crime-by-lsoa
+function(lsoacd) {
+  all_aggregated_crime_df %>%
+    filter(`LSOA code` == lsoacd)
+}
+
 #* @filter cors
 cors <- function(res) {
   res$setHeader("Access-Control-Allow-Origin", "http://localhost:19006")
