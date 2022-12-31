@@ -93,7 +93,7 @@ all_aggregated_crime_df <- all_counted_crime_df %>%
   mutate(
     population = str_remove(population, " "),
     population = as.numeric(population),
-    value = all_crimes / population*10000,
+    value = (all_crimes / population)*10000,
     value = round(value),
     value = as.integer(value),
     score = round(scales::rescale(log(value)) * 9 + 1),

@@ -36,18 +36,15 @@ function(la) {
 
 #* Get lsoa code by post code
 #* @param po Name of post code e.g. SE12SS
-#* @post /lsoa-by-po
+#* @post /crime-by-po
 function(po) {
-  lsoa_lookup %>%
-    filter(pcd7 == po)
-}
-
-#* Get crime data by lsoa code.
-#* @param lsoacd Lsoa code e.g. E01004762
-#* @post /crime-by-lsoa
-function(lsoacd) {
-  all_aggregated_crime_df %>%
-    filter(`LSOA code` == lsoacd)
+  tryCatch({
+    searched_lsoa <- lsoa_lookup %>%
+      filter(pcd7 == po) %>% 
+      pull(lsoa11cd)
+    all_aggregated_crime_df %>%
+      filter(lsoa_code == searched_lsoa) 
+  }, error = function(e) "No data found.")
 }
 
 #* @filter cors
