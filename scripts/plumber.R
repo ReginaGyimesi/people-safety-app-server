@@ -42,7 +42,7 @@ function(po) {
     searched_lsoa <- lsoa_lookup %>%
       filter(pcd7 == po) %>% 
       pull(lsoa11cd)
-    all_aggregated_crime_df %>%
+    most_freq_committed %>%
       filter(lsoa_code == searched_lsoa) 
   }, error = function(e) "No data found.")
 }

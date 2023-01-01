@@ -41,12 +41,29 @@ recorded_crime_clean_la <- recorded_crime_la %>%
          value)
 
 all_crimes_by_la <- recorded_crime_clean_la %>% 
-  filter(crime_or_offence == "all-crimes") %>% 
-  filter(ref_period == "2021/2022")
+  filter(ref_period == "2021/2022") %>% 
+  mutate(
+    crime_or_offence = str_remove(crime_or_offence, ".*\\d-"),
+    crime_or_offence = str_replace_all(crime_or_offence, "-", " "),
+    crime_or_offence = str_to_sentence(crime_or_offence),
+  )
 
 assign_score_to_la <- all_crimes_by_la %>% 
+  arrange(area_code) %>% 
+  group_by(area_code, area_name) %>% 
+  rename(n = value) %>% 
+  filter(crime_or_offence != "All crimes" & crime_or_offence != "All offences") %>% 
+  mutate(total_crime = sum(n)) %>% 
+  slice_max(n, n = 3) %>% 
+  rename(crime_type = crime_or_offence) %>% 
+  nest(
+    crime_type = c(crime_type),
+    n = c(n)
+  ) %>% 
+  mutate_if(is.list, ~ map(., pull)) %>% 
+  ungroup() %>% 
   mutate(
-    score = round(scales::rescale(value) * 9 + 1),
+    score = round(scales::rescale(log(total_crime)) * 9 + 1),
     area_name = case_when(
       area_name == "City of Edinburgh" ~ "Edinburgh",
       area_name == "West Dunbartonshire" ~ "West Dunbartonshire Council",
@@ -59,7 +76,7 @@ assign_score_to_la <- all_crimes_by_la %>%
       score <= 3 ~ "low",  
       4 <= score & score <= 7 ~ "average",  
       score >= 8 ~ "high"
-    )
+    ), 
   )
 
 # Rest of UK data cleaning
@@ -102,9 +119,24 @@ all_aggregated_crime_df <- all_counted_crime_df %>%
       4 <= score & score <= 7 ~ "average",  
       score >= 8 ~ "high"
     )
-    )
+  )
 
 
 lsoa_df <- read_csv("/Users/gyimesiregina/Downloads/PCD_OA_LSOA_MSOA_LAD_MAY22_UK_LU.csv")
 lsoa_lookup <- lsoa_df[c("pcd7","lsoa11cd","lsoa11nm")] %>% 
   mutate(pcd7 = gsub(' ', '', pcd7))
+
+most_freq_committed <- all_counted_crime_df %>% 
+  janitor::clean_names() %>% 
+  # slice(1:24) %>% 
+  group_by(lsoa_code) %>% 
+  slice_max(n, n = 3) %>% 
+  arrange(lsoa_code) %>% 
+  group_by(lsoa_code, lsoa_name) %>% 
+  nest(crime_type = c(crime_type), n = c(n)) %>% 
+  mutate(
+    crime_type = map(crime_type, pull),
+    n = map(n, pull),
+  ) %>% 
+  inner_join(all_aggregated_crime_df, by = c("lsoa_code", "lsoa_name")) %>% 
+  rename(total_crime = value)
