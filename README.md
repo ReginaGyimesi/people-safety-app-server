@@ -1,4 +1,4 @@
-# People's Safety Application Scotland and England
+# People's Safety Application Scotland and England <img src="logo.png" align="right" width="120" height="140"/>
 
 ### Files of the repository
 
