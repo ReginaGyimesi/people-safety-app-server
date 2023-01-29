@@ -16,7 +16,7 @@ This file is responsible for all the available endpoints.
 
     ├── 01-extract_scot.R
     
-This file extracts the scottish recorded crimes with the help of [opendatascot](https://github.com/DataScienceScotland/opendatascot) package and the local authority codes are with their names ([2011 Data Zone Lookup](https://statistics.gov.scot/data/data-zone-lookup)).
+This file extracts the Scottish recorded crimes with the help of [opendatascot](https://github.com/DataScienceScotland/opendatascot) package. The local authority codes are joined with their names with the help of [2011 Data Zone Lookup](https://statistics.gov.scot/data/data-zone-lookup).
 
     ├── 02-clean_scot.R
     
