@@ -37,7 +37,7 @@ all_aggregated_crime_df <- all_counted_crime_df %>%
 english_recorded_crime_clean_df <- all_counted_crime_df %>% 
   janitor::clean_names() %>% 
   group_by(lsoa_code) %>% 
-  slice_max(n, n = 3) %>% 
+  slice_max(n, n = 6) %>% 
   arrange(lsoa_code) %>% 
   group_by(lsoa_code, lsoa_name) %>% 
   nest(crime_type = c(crime_type), n = c(n)) %>% 

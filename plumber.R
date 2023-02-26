@@ -61,13 +61,16 @@ function(la) {
 }
 
 #* Get postcode neighbouring areas, and respective longitudes and latitudes
-#* @param code LSOA code e.g. E01000001
+#* @param po po Name of post code e.g. SE12SS
 #* @post /en-get-neighbouring-areas
-function(code) {
+function(po) {
   tryCatch({
+    searched_lsoa <- lsoa_lookup %>%
+      filter(pcd7 == po) %>% 
+      pull(lsoa11cd)
     english_local_neighbour_df %>%
-      filter(lsoa_code == code) 
-  }, error = function(e) "No data found for code.")
+      filter(lsoa_code == searched_lsoa) 
+  }, error = function(e) "No data found for post code.")
 }
 
 #* @filter cors
