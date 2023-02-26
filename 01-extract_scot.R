@@ -21,3 +21,19 @@ recorded_crime_la_df <- ods_dataset("recorded-crime", measureType="ratio", geogr
     crime_or_offence = str_to_sentence(crime_or_offence),
   )
 
+# Extract all recorded crimes for local authorities.
+all_recorded_crimes_la <- ods_dataset("recorded-crime", measureType="ratio", geography = "la", )  %>% 
+  janitor::clean_names() %>% 
+  rename(area_code = ref_area) %>%
+  left_join(datazones_df, by = c("area_code" = "area_code")) %>%
+  select(area_code,
+         area_name,
+         ref_period,
+         crime_or_offence,
+         measure_type,
+         value) %>% 
+  mutate(
+    crime_or_offence = str_remove(crime_or_offence, ".*\\d-"),
+    crime_or_offence = str_replace_all(crime_or_offence, "-", " "),
+    crime_or_offence = str_to_sentence(crime_or_offence),
+  )
