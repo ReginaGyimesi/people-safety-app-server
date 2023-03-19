@@ -38,7 +38,7 @@ This file produces the same format as for the Scottish data frame. It contains t
     ├── 05-neigbours_scot.R
     ├── 06-neigbours_en.R
     
-Reads in the [Scottish local authority shape files](https://www.data.gov.uk/dataset/8e3a4564-8081-42ec-8772-03ade11d4acf/local-authority-boundaries-scotland) and [English LSOA shape files](https://www.data.gov.uk/dataset/fa883558-22fb-4a1a-8529-cffdee47d500/lower-layer-super-output-area-lsoa-boundaries). Produces a list of neigbouring areas and each neighbour has their longitude and latitude of their central point.
+Reads the [Scottish local authority shape files](https://www.data.gov.uk/dataset/8e3a4564-8081-42ec-8772-03ade11d4acf/local-authority-boundaries-scotland) and [English LSOA shape files](https://www.data.gov.uk/dataset/fa883558-22fb-4a1a-8529-cffdee47d500/lower-layer-super-output-area-lsoa-boundaries). Produces a list of neigbouring areas and each neighbour has their longitude and latitude of their central point.
 
     ├── find_point_in_shape.R
 
