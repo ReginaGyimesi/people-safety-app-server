@@ -6,8 +6,8 @@ function() {
 }
 
 
-#* Get Scottish crime data overtime by local authority.
-#* @param la Name of local authority e.g Glasgow City
+#* Get Scottish crime data over time by local authority.
+#* @param la Name of local authority e.g. Glasgow City
 #* @post /scot-all-crimes-by-la
 function(la) {
   tryCatch({
@@ -17,7 +17,7 @@ function(la) {
 }
 
 #* Get Scottish crime data by local authority.
-#* @param la Name of local authority e.g Glasgow City
+#* @param la Name of local authority e.g. Glasgow City
 #* @post /scot-crime-by-la
 function(la) {
   tryCatch({
@@ -39,7 +39,7 @@ function(po) {
   }, error = function(e) "No data found for post code.")
 }
 
-#* Filter LSOA name by post code and return English crime data
+#* Filter by LSOA name and return English crime data
 #* @param name LSOA name e.g. City of London 001B
 #* @post /en-crime-by-lsoa-name
 function(name) {

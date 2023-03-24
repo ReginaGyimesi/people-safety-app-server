@@ -1,6 +1,8 @@
 pacman::p_load("st", "sf")
 
-# Read in LSOA shapes.
+#* Read in LSOA shapes.
+#* 
+#* @returns A data frame.
 lsoa_shapes <- st_read("data/raw_data/lower_layer_super_output_areas/Lower_Super_Output_Area_(LSOA)_IMD2019__(WGS84).shp") %>%
   rename(
     lsoa_code = lsoa11cd,
@@ -8,7 +10,12 @@ lsoa_shapes <- st_read("data/raw_data/lower_layer_super_output_areas/Lower_Super
   ) %>%
   tibble()
 
-# Find neighbours for given shape.
+#* Find neighbours for given shape.
+#* 
+#* @returns A data frame.
+#* @param .data The given data frame.
+#* @param geo Column name containing the location names.
+#* @param geometry Column name containing the location data.
 find_neighbours <- function(.data, geo = geo, geometry = geometry) {
   .data |> 
     pull({{ geometry }}) |> 
@@ -24,7 +31,11 @@ find_neighbours <- function(.data, geo = geo, geometry = geometry) {
     summarise(neighbour = list(neighbour))
 }
 
-# Find center of given shape.
+#* Find center point of shapes.
+#* 
+#* @returns A data frame.
+#* @param .data The given data frame.
+#* @param geo Column name containing the location names.
 find_centroid <- function(.data, geo) {
   .data |> 
     pull(geometry) |> 
@@ -36,8 +47,11 @@ find_centroid <- function(.data, geo) {
 
 sf_use_s2(FALSE)
 
-# Return neighbouring areas for England.
-# API: /en-get-neighbouring-areas
+
+#* Return neighbouring areas for England.
+#* 
+#* @returns A data frame.
+#* @API /en-get-neighbouring-areas
 english_local_neighbour_df <- lsoa_shapes |> 
   find_neighbours(lsoa_name) |> 
   unnest(neighbour) |> 

@@ -1,9 +1,13 @@
-# Data zone codes with their respective names.
+#* Data zone codes and names.
+#* 
+#* @returns A data frame.
 datazones_df <- read_csv("data/raw_data/DataZone2011lookup_2022-05-31.csv") %>% 
   select(area_code = LA_Code, area_name = LA_Name) %>% 
   unique()
 
-# Extract all recorded crimes for local authorities for the period 2021-2022.
+#* Extract all recorded crimes for Local Authorities for the period 2021/22.
+#* 
+#* @returns A data frame.
 recorded_crime_la_df <- ods_dataset("recorded-crime", measureType="ratio", geography = "la", ) %>% 
   janitor::clean_names() %>% 
   rename(area_code = ref_area) %>%
@@ -21,7 +25,9 @@ recorded_crime_la_df <- ods_dataset("recorded-crime", measureType="ratio", geogr
     crime_or_offence = str_to_sentence(crime_or_offence),
   )
 
-# Extract all recorded crimes for local authorities.
+#* Extract all recorded crimes for Local Authorities.
+#* 
+#* @returns A data frame.
 all_recorded_crimes_la <- ods_dataset("recorded-crime", measureType="ratio", geography = "la", )  %>% 
   janitor::clean_names() %>% 
   rename(area_code = ref_area) %>%

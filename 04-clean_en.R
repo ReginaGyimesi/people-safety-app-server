@@ -1,4 +1,6 @@
-# Count all crimes for England for 2022.
+#* All counted crimes for England in 2021/22.
+#* 
+#* @returns A data frame.
 all_counted_crime_df <- map_df(file_names, \(x) {
   read_csv(x, show_col_types = FALSE) %>% 
     count(`LSOA code`, `LSOA name`, `Crime type`) 
@@ -8,8 +10,9 @@ all_counted_crime_df <- map_df(file_names, \(x) {
   summarise(n = sum(n)) %>% 
   ungroup()
 
-# Recorded crime df for England.
-# Adds recorded crime ratio, danger severity score and score category.
+#* Recorded crime data frame for England with crime ratio, danger severity score and score category.
+#* 
+#* @returns A data frame.
 all_aggregated_crime_df <- all_counted_crime_df %>% 
   janitor::clean_names() %>% 
   group_by(`lsoa_code`, `lsoa_name`) %>% 
@@ -31,9 +34,10 @@ all_aggregated_crime_df <- all_counted_crime_df %>%
     )
   )
 
-# Recorded crime df for England.
-# Adds most commonly committed crimes and their respective occurrences. 
-# API: /en-crime-by-po
+#* Final recorded crime data frame for England.
+#* 
+#* @returns A data frame.
+#* @API /en-crime-by-po
 english_recorded_crime_clean_df <- all_counted_crime_df %>% 
   janitor::clean_names() %>% 
   group_by(lsoa_code) %>% 
@@ -49,6 +53,8 @@ english_recorded_crime_clean_df <- all_counted_crime_df %>%
   rename(total_crime = value)
 
 
-# Look up table for postcodes and LSOA codes.
+#* Look up table LSOA code by postcode.
+#* 
+#* @returns A data frame.
 lsoa_lookup <- lsoa_df[c("pcd7","lsoa11cd","lsoa11nm")] %>% 
   mutate(pcd7 = gsub(' ', '', pcd7))
