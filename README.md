@@ -28,7 +28,7 @@ Next, this file evaluates the most commonly committed crimes and their occurrenc
 
 Reads in 11 months of crime data from 01/2022 to 11/2022 utilising the [English governmental crime database](https://data.police.uk/data/). In addition, it reads in the [LSOA population](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates), and post codes with their respective LSOA names ([Postcode to Output Area to Lower Layer Super Output Area Lookup](https://geoportal.statistics.gov.uk/datasets/postcode-to-output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-may-2022-lookup-in-the-uk-1/about)).
 
-**_NOTE:_** [Postcode to Output Area to Lower Layer Super Output Area Lookup](https://geoportal.statistics.gov.uk/datasets/postcode-to-output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-may-2022-lookup-in-the-uk-1/about) is not included in this repository. Before pulling, please make sure that you have the mentioned file downloaded and present in the [data/raw_data](data/raw_data) path.
+**_NOTE:_** [Postcode to Output Area to Lower Layer Super Output Area Lookup](https://geoportal.statistics.gov.uk/datasets/postcode-to-output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-may-2022-lookup-in-the-uk-1/about) is not included in this repository. Before running the files, please make sure that you have the mentioned file downloaded and present in the [data/raw_data](data/raw_data) path.
 
     ├── 04-clean_en.R
 
