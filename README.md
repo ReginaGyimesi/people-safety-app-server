@@ -43,10 +43,10 @@ Reads the [Scottish local authority shape files](https://www.data.gov.uk/dataset
 
 This includes functions to find out if a point is present in a given shape. At the end, this file didn't make the cut to the final API.
 
-    ├── tests
+    ├── tests/
 
         ├── test_05-neighbours_scot.R
-        ├── test_05-neighbours_en.R
+        ├── test_06-neighbours_en.R
 
 This folder includes the test files for the neighbouring areas.
 
