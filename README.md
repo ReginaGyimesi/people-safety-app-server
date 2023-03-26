@@ -48,6 +48,9 @@ This includes functions to find out if a point is present in a given shape. At t
         ├── test_05-neighbours_scot.R
         ├── test_06-neighbours_en.R
 
-This folder includes the test files for the neighbouring areas.
+This folder includes the test files for the neighbouring areas. The tests can be started by running
+```
+testthat::test_dir("tests")
+```
 
 If you have any questions please reach out on [regina.gyimesi.2019@uni.strath.ac.uk](mailto:regina.gyimesi.2019@uni.strath.ac.uk).
