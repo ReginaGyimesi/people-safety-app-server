@@ -1,6 +1,6 @@
 # People's Safety App Scotland and England <img src="logo.png" align="right" width="120" height="140"/>
 
-**_NOTE:_** The ```.Rdata``` file automatically loads the necessary data frames and the API can be started by running the ```main.R``` file. If you would like to run the code yourself, please carefully read the description below.
+**_NOTE:_** The ```.Rdata``` file automatically loads the necessary data frames and the API can be started by running the ```utils.R``` and then the ```main.R``` file. If you would like to run the code yourself, please carefully read the description below.
 
 ### Files of the repository
 
